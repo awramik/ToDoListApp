@@ -11,3 +11,11 @@ s
 Capp/src/main/java/com/example/todolistapp/fragments/HomeFragment.kt,a\1\a16b86b27619537f495cc6c46d0979e89b3904b1
 i
 9app/src/main/java/com/example/todolistapp/MainActivity.kt,0\3\036624adf5cef80ece13223862d54313cd3a525e
+C
+settings.gradle.kts,7\4\749edfcc96398253e5b3416184e95c46621da850
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+]
+-.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
