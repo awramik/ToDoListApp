@@ -1,24 +1,24 @@
 package com.example.todolistapp.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.todolistapp.R
 import com.example.todolistapp.databinding.FragmentSignUpBinding
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 
 
 class SignUpFragment : Fragment() {
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var navControl: NavController
+    private lateinit var navController: NavController
+    private lateinit var mAuth: FirebaseAuth
     private lateinit var binding: FragmentSignUpBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,53 +28,47 @@ class SignUpFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         init(view)
-        registerEvents()
-    }
 
-    private fun init(view: View){
-        navControl = Navigation.findNavController(view)
-        auth = FirebaseAuth.getInstance()
-    }
-
-    private fun registerEvents(){
-
-        binding.authTextView.setOnClickListener(){
-            navControl.navigate(R.id.action_signUpFragment_to_signInFragment)
+        binding.authTextView.setOnClickListener {
+            navController.navigate(R.id.action_signUpFragment_to_signInFragment)
         }
 
         binding.nextBtn.setOnClickListener {
-            val email = binding.emailEt.text.toString().trim()
-            val pass = binding.passEt.text.toString().trim()
-            val verifyPass = binding.verifyPassEt.toString().trim()
+            val email = binding.emailEt.text.toString()
+            val pass = binding.passEt.text.toString()
+            val verifyPass = binding.verifyPassEt.text.toString()
 
-            if(email.isNotEmpty() && pass.isNotEmpty() && verifyPass.isNotEmpty()){
-                if(pass == (verifyPass)){
-                    binding.progressBar.visibility = View.VISIBLE
-                    auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(
-                        OnCompleteListener {
-                            if(it.isSuccessful){
+            if (email.isNotEmpty() && pass.isNotEmpty() && verifyPass.isNotEmpty()) {
+                if (pass == verifyPass) {
 
-                                Toast.makeText(context, "Registered Succesfully!", Toast.LENGTH_SHORT).show()
-                                navControl.navigate(R.id.action_signUpFragment_to_homeFragment)
+                    registerUser(email, pass)
 
-                            }
-                            else{
-                                Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
-                            }
-                            binding.progressBar.visibility = View.GONE
-                        })
-                }else{
+                } else {
                     Toast.makeText(context, "Incorrect password", Toast.LENGTH_SHORT).show()
-                    }
-            }
-            else{
-                Toast.makeText(context, "Empty fields not allowed", Toast.LENGTH_SHORT).show()
-            }
+                }
+            } else
+                Toast.makeText(context, "Empty fields are not allowed", Toast.LENGTH_SHORT).show()
         }
 
+    }
+
+    private fun registerUser(email: String, pass: String) {
+        mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
+            if (it.isSuccessful)
+                navController.navigate(R.id.action_signUpFragment_to_homeFragment)
+            else
+                Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
+
+        }
+    }
+
+    private fun init(view: View) {
+        navController = Navigation.findNavController(view)
+        mAuth = FirebaseAuth.getInstance()
     }
 }
