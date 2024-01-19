@@ -5,4 +5,5 @@
     <string name="type_your_email">Enter your Email</string>
     <string name="type_your_pass">Enter your Password</string>
     <string name="retype_your_pass">Reenter your Password</string>
+    <string name="type_your_task">Type your Task</string>
 </resources>
