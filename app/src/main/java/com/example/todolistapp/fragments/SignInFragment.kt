@@ -3,6 +3,7 @@ package com.example.todolistapp.fragments
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -12,6 +13,8 @@ import com.example.todolistapp.R
 import com.example.todolistapp.databinding.FragmentSignInBinding
 import com.example.todolistapp.databinding.FragmentSignUpBinding
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 class SignInFragment : Fragment() {
@@ -26,6 +29,7 @@ class SignInFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentSignInBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -35,6 +39,7 @@ class SignInFragment : Fragment() {
         init(view)
         registerEvents()
     }
+
 
     private fun init(view: View){
         navControl = Navigation.findNavController(view)
