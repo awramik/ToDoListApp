@@ -1,3 +1,3 @@
 package com.example.todolistapp.utils
 
-data class ToDoData(val taskId : String, val task : String)
+data class ToDoData(val taskId: String, var task: String, val selectedPriority: String)
