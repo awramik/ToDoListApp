@@ -50,17 +50,20 @@ class HomeFragment : Fragment(), AddToDoPopupFragment.OnDialogNextBtnClickListen
         registerEvents()
     }
 
-    private fun registerEvents(){
+    private fun registerEvents() {
         binding.addBtnHome.setOnClickListener {
-            if(popupFragment != null){
-                childFragmentManager.beginTransaction().remove(popupFragment!!).commit()
+            if (popupFragment == null) {
+                popupFragment = AddToDoPopupFragment()
+                popupFragment!!.setListener(this)
             }
-            popupFragment = AddToDoPopupFragment()
-            popupFragment!!.setListener(this)
-            popupFragment!!.show(
-                childFragmentManager,
-                AddToDoPopupFragment.TAG
-            )
+
+            childFragmentManager.beginTransaction().apply {
+                if (!popupFragment!!.isAdded) {
+                    add(popupFragment!!, AddToDoPopupFragment.TAG)
+                }
+                show(popupFragment!!)
+                commit()
+            }
         }
     }
 
@@ -103,7 +106,9 @@ class HomeFragment : Fragment(), AddToDoPopupFragment.OnDialogNextBtnClickListen
 
     override fun onsaveTask(todo: String, todoEt: TextInputEditText) {
 
-        databaseRef.push().setValue(todo).addOnCompleteListener {
+        val taskId = System.currentTimeMillis().toString()
+        //databaseRef.push().setValue(todo).addOnCompleteListener
+        databaseRef.child(taskId).setValue(todo).addOnCompleteListener{
 
             if(it.isSuccessful){
                 Toast.makeText(context, "Task saved successfully !", Toast.LENGTH_SHORT).show()
@@ -117,6 +122,7 @@ class HomeFragment : Fragment(), AddToDoPopupFragment.OnDialogNextBtnClickListen
 
 
     override fun onUpdateTask(toDoData: ToDoData, todoEt: TextInputEditText) {
+
         val map = HashMap<String, Any>()
         map[toDoData.taskId] = toDoData.task
         databaseRef.updateChildren(map).addOnCompleteListener {
