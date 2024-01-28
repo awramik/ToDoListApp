@@ -14,9 +14,9 @@
         android:title="Weather"
         android:icon="@drawable/sun_icon"/>
     <item
-        android:id="@+id/notesFragment"
+        android:id="@+id/profileFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Notes"
-        android:icon="@drawable/notes_icon"/>
+        android:title="Profile"
+        android:icon="@drawable/person_icon"/>
 </menu>

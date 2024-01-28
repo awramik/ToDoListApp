@@ -84,7 +84,7 @@ class HomeFragment : Fragment(), AddToDoPopupFragment.OnDialogNextBtnClickListen
                 mList.clear()
                 for(taskSnapshot in snapshot.children){
                     val todoTask = taskSnapshot.key?.let {
-                        ToDoData(it, taskSnapshot.value.toString(), selectedPriority)
+                        ToDoData(it, taskSnapshot.value.toString())
                     }
 
                     if(todoTask != null){
@@ -101,13 +101,9 @@ class HomeFragment : Fragment(), AddToDoPopupFragment.OnDialogNextBtnClickListen
         })
     }
 
-    override fun onsaveTask(todo: String, todoEt: TextInputEditText, selectedPriority: String) {
+    override fun onsaveTask(todo: String, todoEt: TextInputEditText) {
 
-        val newTask = ToDoData("", todo, selectedPriority)
-
-        val newTaskRef = databaseRef.push()
-
-        newTaskRef.setValue(newTask).addOnCompleteListener {
+        databaseRef.push().setValue(todo).addOnCompleteListener {
 
             if(it.isSuccessful){
                 Toast.makeText(context, "Task saved successfully !", Toast.LENGTH_SHORT).show()
@@ -118,6 +114,7 @@ class HomeFragment : Fragment(), AddToDoPopupFragment.OnDialogNextBtnClickListen
             popupFragment!!.dismiss()
         }
     }
+
 
     override fun onUpdateTask(toDoData: ToDoData, todoEt: TextInputEditText) {
         val map = HashMap<String, Any>()

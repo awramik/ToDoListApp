@@ -2,20 +2,11 @@ package com.example.todolistapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.replace
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.todolistapp.databinding.ActivityMainBinding
-import com.example.todolistapp.fragments.HomeFragment
-import com.example.todolistapp.fragments.NotesFragment
-import com.example .todolistapp.fragments.WeatherFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener {_, destination, _ ->
             when(destination.id) {
-                R.id.homeFragment, R.id.notesFragment, R.id.weatherFragment ->{
+                R.id.homeFragment, R.id.profileFragment, R.id.weatherFragment ->{
                     binding.bottomNavigationView.visibility = View.VISIBLE
                 }
                 else ->{

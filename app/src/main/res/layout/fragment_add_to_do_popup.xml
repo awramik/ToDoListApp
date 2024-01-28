@@ -65,15 +65,6 @@
             app:layout_constraintEnd_toEndOf="@+id/cardView1"
             android:layout_marginTop="12dp"/>
 
-        <Spinner
-            android:id="@+id/prioritySpinner"
-            android:layout_width="200dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:prompt="@string/choose_priority_hint"
-            app:layout_constraintEnd_toStartOf="@+id/todoNextBtn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
